@@ -2,10 +2,6 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
-orbs:
-  maven: circleci/maven@1.3.0
-  allure: ayte/allure@0.1.3
-
 jobs:
   test-job:
     docker:
@@ -16,10 +12,29 @@ jobs:
       - run:
           name: Test
           command: mvn clean test
-      - maven/process_test_results
-      - allure/install
-      - allure/report:
-          target-path: target/allure-results
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
+      - store_test_results:
+          path: ~/test-results/junit
+      - store_artifacts:
+          path: ~/test-results/junit
+      - run:
+          name: Allure results
+          command: mvn allure:report
+      - run:
+          name: Save allure results
+          command: |
+            mkdir -p ~/test-results/allure/
+            find . -type f -regex ".*/target/allure-results/.*" -exec cp {} ~/test-results/allure/ \;
+          when: always
+      - store_test_results:
+          path: ~/test-results/allure
+      - store_artifacts:
+          path: ~/test-results/allure   
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
