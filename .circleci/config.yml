@@ -7,6 +7,13 @@ orbs:
   allure: ayte/allure@0.1.3
 
 jobs:
+  test-results-job:
+    docker:
+      # replace with your preferred image
+      - image: cimg/base:stable
+    steps:
+      - maven/process_test_results
+
   allure-job:
     docker:
       # replace with your preferred image
@@ -22,6 +29,9 @@ workflows:
     example-workflow:
       jobs:
         - maven/test
+        - test-results-job:
+            requires:
+              - maven/test
         - allure-job:
             requires:
               - maven/test
