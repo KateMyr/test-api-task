@@ -22,4 +22,6 @@ workflows:
     example-workflow:
       jobs:
         - maven/test
-        - allure-job
+        - allure-job:
+            requires:
+              - maven/test
