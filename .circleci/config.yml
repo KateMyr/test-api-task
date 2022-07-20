@@ -5,15 +5,13 @@ version: 2.1
 orbs:
   maven: circleci/maven@1.3.0
   allure: ayte/allure@0.1.3
-  java11: drift/java11@0.1.2
 
 jobs:
   allure-job:
     docker:
       # replace with your preferred image
-      - image: cimg/base:stable
+      - image: cimg/openjdk:11.0.12
     steps:
-      - java11/install-java11-and-maven36
       - allure/install
       - allure/report
 
