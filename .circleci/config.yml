@@ -14,7 +14,7 @@ jobs:
     steps:
       - allure/install
       - allure/report:
-          target-path: target/allure-report 
+          target-path: target/allure-results
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
