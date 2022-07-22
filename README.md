@@ -1,5 +1,7 @@
 ## Tests with using [jsonplaceholder](https://jsonplaceholder.typicode.com/)
 
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/KateMyr/test-api-task/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/KateMyr/test-api-task/tree/main)
+
 ### About
 This project is a part of the test task given by one of the companies.
 
